@@ -2,14 +2,20 @@
 Convert Pokemon savefiles to Showdown text format
 
 ## Installing
-`npm install pokesav-showdown-convert`
+At the moment, the `pokesav-gba` module is not available on npm; to be able to use this command, you have to manually install dependencies and build it within this module's `node_modules/` folder.
+
+```sh
+npm install -g pokesav-showdown-convert
+
+# install deps for, and build, pokesav-gba
+```
 
 ## Example usage
-```js
-var pokesav-showdown-convert = require('pokesav-showdown-convert');
-
-// Do whatever you want with 'pokesav-showdown-convert'!
+```sh
+pokesav-showdown-convert Pokemon-Savefile.sav
 ```
+
+This outputs the Showdown-compatible text file to standard out.
     
 ## License
 The MIT License (MIT)
