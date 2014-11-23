@@ -1,1 +1,4 @@
-# The entry point of all to come...
+argv = require 'yargs'
+	.argv
+
+pokesavGba = require 'pokesav-gba'
