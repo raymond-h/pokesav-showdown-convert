@@ -8,4 +8,6 @@ formatter = require './formatter'
 
 [savefile] = argv._
 
-console.log formatter.output new pokesavGba.GameSave fs.readFileSync savefile
+save = new pokesavGba.Savefile fs.readFileSync savefile
+
+console.log formatter.output save.current
