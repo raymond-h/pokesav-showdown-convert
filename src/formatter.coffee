@@ -15,7 +15,7 @@ exports.outputPokemon = (gameSave, pkmn) ->
 		Shiny: #{if (pkmn.isShiny ? no) then 'Yes' else 'No'}
 		Happiness: #{pkmn.friendship}
 		EVs: #{exports.outputStats pkmn.evs}
-		#{pkmn.nature ? 'Naughty'} Nature
+		#{exports.nature pkmn} Nature
 		IVs: #{exports.outputStats pkmn.ivs}
 		#{exports.outputMoves pkmn.moves}
 	"""
@@ -34,3 +34,8 @@ exports.outputStats = (stats) ->
 
 exports.outputMoves = (moves) ->
 	("- #{move.name}" for move in moves).join '\n'
+
+exports.nature = (pkmn) ->
+	titleize = (s) -> s[0].toUpperCase() + s[1..]
+
+	if pkmn.nature? then titleize pkmn.nature else 'Naughty'
