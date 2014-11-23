@@ -15,7 +15,7 @@ exports.outputPokemon = (gameSave, pkmn) ->
 		Shiny: #{if (pkmn.isShiny ? no) then 'Yes' else 'No'}
 		Happiness: #{pkmn.friendship}
 		EVs: #{exports.outputStats pkmn.evs}
-		Naughty Nature
+		#{pkmn.nature ? 'Naughty'} Nature
 		IVs: #{exports.outputStats pkmn.ivs}
 		#{exports.outputMoves pkmn.moves}
 	"""
