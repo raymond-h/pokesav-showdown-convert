@@ -2,22 +2,20 @@ exports.output = (gameSave) ->
 	"""
 		=== #{gameSave.name}'s team ===
 
-		#{
-			(exports.outputPokemon gameSave, pkmn for pkmn in gameSave.team).join '\n\n'
-		}
+		#{(pokemon gameSave, pkmn for pkmn in gameSave.team).join '\n\n'}
 	"""
 
-exports.outputPokemon = (gameSave, pkmn) ->
+exports.pokemon = pokemon = (gameSave, pkmn) ->
 	"""
-		#{pkmn.name} (#{pkmn.species})#{exports.outputItem pkmn.heldItem}
+		#{pkmn.name} (#{pkmn.species})#{gender pkmn}#{item pkmn.heldItem}
 		Ability: #{pkmn.ability}
 		Level: #{pkmn.level}
 		Shiny: #{if (pkmn.isShiny ? no) then 'Yes' else 'No'}
 		Happiness: #{pkmn.friendship}
-		EVs: #{exports.outputStats pkmn.evs}
-		#{exports.nature pkmn} Nature
-		IVs: #{exports.outputStats pkmn.ivs}
-		#{exports.outputMoves pkmn.moves}
+		EVs: #{stats pkmn.evs}
+		#{nature pkmn} Nature
+		IVs: #{stats pkmn.ivs}
+		#{moves pkmn.moves}
 	"""
 
 statNames =
@@ -26,16 +24,20 @@ statNames =
 	spd: 'Spd'
 	spAtk: 'SAtk', spDef: 'SDef'
 
-exports.outputItem = (item) ->
+exports.item = item = (item) ->
 	if item? then " @ #{item}" else ''
 
-exports.outputStats = (stats) ->
+exports.stats = stats = (stats) ->
 	((stats[stat] + ' ' + statName) for stat, statName of statNames).join ' / '
 
-exports.outputMoves = (moves) ->
+exports.moves = moves = (moves) ->
 	("- #{move.name}" for move in moves).join '\n'
 
-exports.nature = (pkmn) ->
+exports.gender = gender = (pkmn) ->
+	if pkmn.gender? then " (#{if pkmn.gender is 'female' then 'F' else 'M'})"
+	else ''
+
+exports.nature = nature = (pkmn) ->
 	titleize = (s) -> s[0].toUpperCase() + s[1..]
 
 	if pkmn.nature? then titleize pkmn.nature else 'Naughty'
