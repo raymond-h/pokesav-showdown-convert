@@ -1,4 +1,11 @@
+fs = require 'fs'
+
+pokesavGba = require 'pokesav-gba'
 argv = require 'yargs'
 	.argv
 
-pokesavGba = require 'pokesav-gba'
+formatter = require './formatter'
+
+[savefile] = argv._
+
+console.log formatter.output new pokesavGba.GameSave fs.readFileSync savefile
