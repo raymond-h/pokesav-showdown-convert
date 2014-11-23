@@ -5,6 +5,9 @@
 	"license": "MIT",
 	"main": "lib/index.js",
 	"author": "Raymond Hammarling",
+	"bin": {
+		"pokesav-showdown-convert": "bin/pokesav-showdown-convert"
+	},
 	"scripts": {
 		"prepublish": "grunt build",
 		"test": "grunt test"
@@ -12,15 +15,12 @@
 	"devDependencies": {
 		"grunt": "*",
 		"load-grunt-tasks": "*",
-
 		"grunt-contrib-coffee": "*",
 		"grunt-coffeelint": "*",
-
 		"grunt-contrib-watch": "*",
 		"chai": "*",
 		"grunt-mocha-test": "*"
 	},
 	"dependencies": {
-
 	}
 }
