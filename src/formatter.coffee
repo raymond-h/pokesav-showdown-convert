@@ -9,7 +9,7 @@ exports.output = (gameSave) ->
 
 exports.outputPokemon = (gameSave, pkmn) ->
 	"""
-		#{pkmn.name} (#{pkmn.species})
+		#{pkmn.name} (#{pkmn.species})#{exports.outputItem pkmn.heldItem}
 		Ability: #{pkmn.ability}
 		Level: #{pkmn.level}
 		Shiny: #{if (pkmn.isShiny ? no) then 'Yes' else 'No'}
@@ -25,6 +25,9 @@ statNames =
 	atk: 'Atk', def: 'Def'
 	spd: 'Spd'
 	spAtk: 'SAtk', spDef: 'SDef'
+
+exports.outputItem = (item) ->
+	if item? then " @ #{item}" else ''
 
 exports.outputStats = (stats) ->
 	((stats[stat] + ' ' + statName) for stat, statName of statNames).join ' / '
