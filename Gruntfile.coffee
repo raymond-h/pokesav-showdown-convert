@@ -47,6 +47,55 @@ module.exports = (grunt) ->
 				files: ['src/**/*.{js,coffee}', 'test/**/*.{js,coffee}']
 				tasks: ['lint']
 
+		curl:
+			node_bin:
+				files:
+					'tmp/node.exe': 'http://nodejs.org/dist/latest/node.exe'
+
+		browserify:
+			main:
+				options:
+					browserifyOptions:
+						builtins: no
+						commondir: no
+						detectGlobals: no
+						insertGlobalVars: '__filename,__dirname'
+
+				files:
+					'tmp/main.js': ['lib/index.js']
+
+		compress:
+			dist:
+				options:
+					archive: '<%= pkg.name %>-<%= pkg.version %>.zip'
+
+				files: [
+					{
+						expand: true
+						cwd: 'tmp'
+						src: ['**/*']
+						dest: ''
+					}
+				]
+
+	grunt.registerTask 'download_node_bin', ->
+		if not grunt.file.exists 'tmp/node.exe'
+			grunt.log.writeln 'Downloading NodeJS binary...'
+			grunt.task.run 'curl:node_bin'
+
+		else grunt.log.writeln 'NodeJS binary already downloaded.'
+
+	grunt.registerTask 'write_run_bat', ->
+		pkg = grunt.config 'pkg'
+
+		contents = """
+			@ECHO off
+
+			"%~dp0/node.exe" "%~dp0/main.js" %* > pkmn.txt 2> %~dp0/err.txt
+		"""
+
+		grunt.file.write 'tmp/run.bat', contents, encoding: 'utf-8'
+
 	grunt.registerTask 'default', ['lint','test','build']
 
 	grunt.registerTask 'build', ['coffee:build']
@@ -55,5 +104,13 @@ module.exports = (grunt) ->
 
 	grunt.registerTask 'lint', ['coffeelint:build']
 	grunt.registerTask 'test', ['mochaTest:test']
+
+	grunt.registerTask 'standalone', [
+		'default'
+		'download_node_bin'
+		'browserify:main'
+		'write_run_bat'
+		'compress:dist'
+	]
 
 	grunt.registerTask 'watch-dev', ['watch:dev']
