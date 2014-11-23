@@ -31,6 +31,10 @@ module.exports = (grunt) ->
 				src: ['test/**/*.test.{js,coffee}']
 
 		watch:
+			default:
+				files: ['src/**/*.{js,coffee}', 'test/**/*.{js,coffee}']
+				tasks: ['default']
+
 			dev:
 				files: ['src/**/*.{js,coffee}', 'test/**/*.{js,coffee}']
 				tasks: ['lint', 'test']
