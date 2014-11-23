@@ -10,7 +10,7 @@ exports.pokemon = pokemon = (gameSave, pkmn) ->
 		#{pkmn.name} (#{pkmn.species})#{gender pkmn}#{item pkmn.heldItem}
 		Ability: #{pkmn.ability}
 		Level: #{pkmn.level}
-		Shiny: #{if (pkmn.shiny ? no) then 'Yes' else 'No'}
+		Shiny: #{if pkmn.shiny then 'Yes' else 'No'}
 		Happiness: #{pkmn.friendship}
 		EVs: #{stats pkmn.evs}
 		#{nature pkmn} Nature
